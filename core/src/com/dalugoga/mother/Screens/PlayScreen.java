@@ -10,7 +10,7 @@ import com.dalugoga.mother.MotherloadDemo;
 /**
  * Created by Daniel on 07/05/2016.
  */
-public class PlayScreen implements Screen {
+public class PlayScreen implements Screen{
 
     private MotherloadDemo game;
     Texture texture;
@@ -21,7 +21,7 @@ public class PlayScreen implements Screen {
     }
 
     @Override
-    public void show() {
+    public void show(){
 
     }
 
