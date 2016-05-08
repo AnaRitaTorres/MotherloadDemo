@@ -1,5 +1,4 @@
-package com.dalugoga.mother.Screens;
-
+package com.dalugoga.mother.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,15 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dalugoga.mother.MotherloadDemo;
-import com.dalugoga.mother.Scenes.Hud;
+import com.dalugoga.mother.scenes.Hud;
 
-/**
- * Created by Daniel on 07/05/2016.
- */
 public class PlayScreen implements Screen{
 
     private MotherloadDemo game;
@@ -51,8 +46,7 @@ public class PlayScreen implements Screen{
 
     }
 
-    public void inputhandler(float dt)
-    {
+    public void inputhandler(float dt){
 
         int x, y, dx, dy;
         if(Gdx.input.isTouched()) {
@@ -68,8 +62,7 @@ public class PlayScreen implements Screen{
         }
     }
 
-    public void update(float dt)
-    {
+    public void update(float dt)    {
         inputhandler(dt);
         gamecam.update();
         renderer.setView(gamecam);

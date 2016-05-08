@@ -1,4 +1,4 @@
-package com.dalugoga.mother.Scenes;
+package com.dalugoga.mother.scenes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;

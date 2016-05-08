@@ -1,4 +1,4 @@
-package com.dalugoga.mother.Screens;
+package com.dalugoga.mother.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,9 +9,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dalugoga.mother.MotherloadDemo;
 
-/**
- * Created by Rita on 07/05/2016.
- */
 public class MenuScreen implements Screen {
 
     private MotherloadDemo game;
@@ -29,7 +26,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -45,17 +41,15 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-       menuPort.update(width,height);
+        menuPort.update(width,height);
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -65,6 +59,5 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }
