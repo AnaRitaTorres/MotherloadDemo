@@ -1,4 +1,4 @@
-package com.dalugoga.mother.screens;
+package com.dalugoga.mother.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

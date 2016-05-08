@@ -2,7 +2,7 @@ package com.dalugoga.mother;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dalugoga.mother.screens.PlayScreen;
+import com.dalugoga.mother.Screens.PlayScreen;
 
 public class MotherloadDemo extends Game {
 	public static final int V_WIDTH = 400;

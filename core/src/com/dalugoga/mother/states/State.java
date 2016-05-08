@@ -1,4 +1,4 @@
-package com.dalugoga.mother.states;
+package com.dalugoga.mother.States;
 
 /**
  * Created by Rita on 08/05/2016.
