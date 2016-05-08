@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dalugoga.mother.MotherloadDemo;
+import com.dalugoga.mother.Objects.Driller;
 import com.dalugoga.mother.Scenes.Hud;
 
 
@@ -53,10 +54,10 @@ public class PlayScreen implements Screen{
 
         renderer = new OrthogonalTiledMapRenderer(map);
 
-        gamecam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
+        gamecam.position.set(gamePort.getWorldWidth()/2, 1200, 0);
 
 
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
@@ -89,6 +90,8 @@ public class PlayScreen implements Screen{
             fdef.shape = shape;
             body.createFixture(fdef);
         }
+
+        Driller driller = new Driller(world);
     }
 
     @Override
@@ -114,6 +117,8 @@ public class PlayScreen implements Screen{
 
     public void update(float dt)    {
         inputhandler(dt);
+
+        world.step(1/60f, 6, 2);
         gamecam.update();
         renderer.setView(gamecam);
     }
@@ -124,9 +129,12 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
 
         renderer.render();
+
+        b2dr.render(world, gamecam.combined);
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
 
