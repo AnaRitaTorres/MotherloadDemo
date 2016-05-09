@@ -1,6 +1,7 @@
 package com.dalugoga.mother.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,18 +42,20 @@ public class PlayScreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    Driller driller;
+
 
     public PlayScreen(MotherloadDemo game){
         this.game = game;
         texture = new Texture("badlogic.jpg");
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(MotherloadDemo.V_WIDTH/2, MotherloadDemo.V_HEIGHT/2, gamecam);
+        gamePort = new FitViewport(MotherloadDemo.V_WIDTH/ MotherloadDemo.PPM, MotherloadDemo.V_HEIGHT/ MotherloadDemo.PPM, gamecam);
         hud = new Hud(game.batch);
 
         maploader = new TmxMapLoader();
         map = maploader.load("map.tmx");
 
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map, 1/ MotherloadDemo.PPM);
 
         gamecam.position.set(gamePort.getWorldWidth()/2, 1200, 0);
 
@@ -69,11 +72,11 @@ public class PlayScreen implements Screen{
             Rectangle rect =((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() /2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MotherloadDemo.PPM, (rect.getY() + rect.getHeight() /2) / MotherloadDemo.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            shape.setAsBox(rect.getWidth() / 2/ MotherloadDemo.PPM, rect.getHeight() / 2/ MotherloadDemo.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -82,16 +85,16 @@ public class PlayScreen implements Screen{
             Rectangle rect =((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() /2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MotherloadDemo.PPM, (rect.getY() + rect.getHeight() /2)/ MotherloadDemo.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            shape.setAsBox(rect.getWidth() / 2/ MotherloadDemo.PPM, rect.getHeight() / 2/ MotherloadDemo.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
 
-        Driller driller = new Driller(world);
+        driller = new Driller(world);
     }
 
     @Override
@@ -100,7 +103,7 @@ public class PlayScreen implements Screen{
     }
 
     public void inputhandler(float dt){
-
+        /*
         int x, y, dx, dy;
         if(Gdx.input.isTouched()) {
             x = Gdx.input.getX();
@@ -113,12 +116,35 @@ public class PlayScreen implements Screen{
             gamecam.position.x -= dx *dt;
             gamecam.position.y += dy *dt;
         }
+        */
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) && driller.b2body.getLinearVelocity().y <= 6.5){
+            driller.b2body.applyLinearImpulse(new Vector2(0, 3f), driller.b2body.getWorldCenter(), true);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && driller.b2body.getLinearVelocity().x >= -6.5){
+            driller.b2body.applyLinearImpulse(new Vector2(-0.8f, 0), driller.b2body.getWorldCenter(), true);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && driller.b2body.getLinearVelocity().x <= 6.5){
+            driller.b2body.applyLinearImpulse(new Vector2(0.8f, 0), driller.b2body.getWorldCenter(), true);
+        }
+
+
     }
 
     public void update(float dt)    {
         inputhandler(dt);
 
         world.step(1/60f, 6, 2);
+        gamecam.position.x = driller.b2body.getPosition().x;
+        gamecam.position.y = driller.b2body.getPosition().y;
+/*
+        System.out.print(driller.getX());
+        System.out.print(" ");
+        System.out.print(driller.getY());
+        System.out.print("\n\n");*/
         gamecam.update();
         renderer.setView(gamecam);
     }

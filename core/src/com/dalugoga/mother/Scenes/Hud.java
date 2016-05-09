@@ -31,7 +31,7 @@ public class Hud {
         health = 100;
         score = 0;
 
-        viewport  = new FitViewport(MotherloadDemo.V_WIDTH, MotherloadDemo.V_HEIGHT, new OrthographicCamera());
+        viewport  = new FitViewport(MotherloadDemo.V_WIDTH*2, MotherloadDemo.V_HEIGHT*2, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();
